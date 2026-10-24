@@ -23,7 +23,11 @@ packages/engine        движок: чистый TypeScript, без DOM, общ
   src/goals.ts         выбор цели по сиду, прогресс, итог с множителем
   src/daily.ts         сид и номер дня по UTC
   src/replay.ts        реплей журнала ходов — им сервер считает очки сам
-apps/web               этап 2: Vite + TS, плата, свайп, итог, Telegram WebApp SDK
+apps/web               клиент: Vite + TS без фреймворков
+  src/plate.ts         плата на канвасе: дорожки, точки, падение, ввод свайпом
+  src/telegram.ts      WebApp SDK: ready/expand, тема, HapticFeedback, BackButton; вне Telegram — лаборант
+  src/store.ts         местная память попытки дня и стрик (пока нет сервера)
+  src/main.ts          экраны: меню, игра, итог
 apps/server            этап 3: Fastify + Postgres (drizzle), initData, /daily, /submit, таблица
 docker-compose.yml     этап 3: Postgres
 .env.example           этап 3: BOT_TOKEN, DATABASE_URL
@@ -48,6 +52,11 @@ docker-compose.yml     этап 3: Postgres
 
 ```bash
 pnpm install
+pnpm dev         # клиент на http://localhost:5173 (и в сети — для телефона)
 pnpm test        # тесты движка (vitest)
 pnpm typecheck   # проверка типов
 ```
+
+Без Telegram клиент работает в режиме разработки: игрок — «Лаборант»,
+haptic и «Назад» молчат. Попытка дня пока хранится в localStorage —
+сбросить её: DevTools → Application → Local Storage → `dotoscope-daily-*`.

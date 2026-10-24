@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>dotoscope · вызов дня</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <main class="device">
+    <header class="top">
+      <div>
+        <div id="brand" class="brand"></div>
+        <div class="model mono">DOTOSCOPE · <b>DAILY 36</b></div>
+      </div>
+      <div class="who mono">
+        <span id="who-name"></span>
+        <span id="who-streak" class="streak"></span>
+      </div>
+    </header>
+
+    <!-- Меню: два режима -->
+    <section id="menu" class="screen">
+      <div class="scope">
+        <div class="scope-head mono">ПАНЕЛЬ · РЕЖИМЫ</div>
+        <h1 class="scope-title">ДОТОСКОП</h1>
+
+        <button id="go-daily" class="mode mode-acc">
+          <span class="mode-row">
+            <span class="mode-name">Вызов дня</span>
+            <span id="daily-no" class="mode-tag mono"></span>
+          </span>
+          <span id="daily-goal" class="mode-desc"></span>
+          <span id="daily-state" class="mode-state mono"></span>
+        </button>
+
+        <button id="go-free" class="mode">
+          <span class="mode-row">
+            <span class="mode-name">Свободно</span>
+            <span class="mode-tag mono">∞</span>
+          </span>
+          <span class="mode-desc">Случайный образец, без рейтинга, сколько угодно попыток.</span>
+        </button>
+
+        <div class="rules mono">
+          Ведите цепочку из 2+ соседних точек одного цвета.<br />
+          Очки: 10 · n(n−1)/2 — длинная цепь дороже. 25 ходов.<br />
+          Цель дня выполнена — итог ×1.5.
+        </div>
+      </div>
+    </section>
+
+    <!-- Игра -->
+    <section id="game" class="screen" hidden>
+      <div class="readouts">
+        <div>
+          <div class="label mono">ПОТЕНЦИАЛ</div>
+          <div id="score" class="big mono">0</div>
+        </div>
+        <div class="right">
+          <div class="label mono">ХОДЫ</div>
+          <div id="moves" class="big mono">25</div>
+        </div>
+      </div>
+
+      <div class="status mono">
+        <span id="led" class="led"></span>
+        <span id="status">СЕТЬ СТАБИЛЬНА</span>
+        <span id="chain-len" class="status-right"></span>
+      </div>
+
+      <div class="scope scope-plate">
+        <div class="goal">
+          <span class="label mono">ЦЕЛЬ</span>
+          <span id="goal-text" class="goal-text"></span>
+          <span id="goal-progress" class="goal-progress mono"></span>
+        </div>
+        <canvas id="plate" class="plate"></canvas>
+        <div class="foot mono">
+          <span id="mode-name">ПЛАТА</span>
+          <span id="sample" class="sample"></span>
+        </div>
+      </div>
+
+      <div class="keys">
+        <button id="quit" class="key"><b>МЕНЮ</b><small>выйти</small></button>
+      </div>
+    </section>
+
+    <!-- Итог -->
+    <section id="result" class="screen" hidden>
+      <div class="scope">
+        <div id="res-head" class="scope-head mono">ИТОГ</div>
+        <h1 id="res-final" class="scope-title res-final">0</h1>
+        <table class="res-table mono">
+          <tr><td>Потенциал</td><td id="res-score"></td></tr>
+          <tr><td id="res-goal-text">Цель</td><td id="res-goal"></td></tr>
+          <tr><td>Цепочек</td><td id="res-chains"></td></tr>
+          <tr><td>Самая длинная</td><td id="res-longest"></td></tr>
+        </table>
+        <div id="res-note" class="rules mono"></div>
+      </div>
+      <div class="keys">
+        <button id="res-menu" class="key"><b>МЕНЮ</b><small>режимы</small></button>
+        <button id="res-again" class="key key-acc"><b>ЕЩЁ</b><small>новый образец</small></button>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

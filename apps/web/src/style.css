@@ -1,0 +1,206 @@
+/*
+ * Шрифты лежат в проекте, а не тянутся с Google Fonts: внешний запрос при
+ * каждой загрузке — лишняя точка отказа, а в Telegram ещё и задержка.
+ */
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/inter-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'Inter var';
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2122, U+2212;
+}
+@font-face {
+  font-family: 'JetBrains Mono var';
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-cyrillic.woff2') format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: 'JetBrains Mono var';
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/jetbrains-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2122, U+2212;
+}
+
+/*
+ * Корпус по умолчанию графитовый; в Telegram его перекрашивает тема
+ * клиента (`telegram.ts`). Стекло — окуляр и плата — чёрное всегда.
+ */
+:root {
+  --case: #242422;
+  --case-2: #2e2e2b;
+  --silk: #e9e7e2;
+  --silk-2: #7e7b74;
+  --acc: #e84b23;
+  --acc-edge: #c63a15;
+  --ok: #3f9c79;
+  --edge: rgba(255, 255, 255, 0.1);
+  --scope: #0c0d0e;
+  --scope-line: #1d1e1d;
+  --scope-dim: #6e6b64;
+  --scope-ink: #edeae3;
+  --sans: 'Inter var', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --mono: 'JetBrains Mono var', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+/* Атрибут hidden сильнее любой своей раскладки: иначе `display: flex` его перебьёт. */
+[hidden] { display: none !important; }
+html, body { min-height: 100%; }
+body {
+  background: var(--case);
+  color: var(--silk);
+  font-family: var(--sans);
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+}
+button { font: inherit; color: inherit; border: 0; background: none; cursor: pointer; text-align: left; }
+.mono { font-family: var(--mono); }
+
+.device {
+  width: 100%;
+  max-width: 430px;
+  padding: 14px 16px calc(16px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- Шапка ---------- */
+
+.top { display: flex; justify-content: space-between; align-items: flex-start; }
+.brand svg { display: block; }
+.model { font-size: 10px; letter-spacing: 0.2em; color: var(--silk-2); margin-top: 6px; }
+.model b { color: var(--silk); font-weight: 600; }
+.who { text-align: right; font-size: 11px; letter-spacing: 0.08em; color: var(--silk-2); display: flex; flex-direction: column; gap: 4px; }
+.streak { color: var(--acc); }
+
+.screen { display: flex; flex-direction: column; gap: 12px; }
+
+/* ---------- Окуляр ---------- */
+
+.scope {
+  background: var(--scope);
+  border: 1px solid var(--scope-line);
+  border-radius: 18px;
+  padding: 16px;
+  color: var(--scope-ink);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.scope-head { font-size: 10px; letter-spacing: 0.2em; color: var(--scope-dim); }
+.scope-title { font-size: 26px; font-weight: 800; font-style: italic; letter-spacing: -0.01em; margin-bottom: 4px; }
+
+.mode {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--scope-line);
+  background: #141516;
+  color: var(--scope-ink);
+}
+.mode-acc { border-color: var(--acc); }
+.mode-acc .mode-name { color: var(--acc); }
+.mode:active { transform: translateY(1px); }
+.mode-row { display: flex; justify-content: space-between; align-items: baseline; }
+.mode-name { font-size: 19px; font-weight: 700; }
+.mode-tag { font-size: 12px; color: var(--scope-dim); }
+.mode-acc .mode-tag { color: var(--acc); }
+.mode-desc { font-size: 13px; color: #a29f97; }
+.mode-state { font-size: 11px; letter-spacing: 0.08em; color: var(--scope-dim); margin-top: 2px; }
+.mode-state.done { color: var(--ok); }
+
+.rules { font-size: 11px; line-height: 1.7; color: var(--scope-dim); padding: 4px 2px 0; }
+
+/* ---------- Игра ---------- */
+
+.readouts { display: flex; justify-content: space-between; }
+.readouts .right { text-align: right; }
+.label { font-size: 10px; letter-spacing: 0.2em; color: var(--silk-2); }
+.big { font-size: 30px; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.big.low { color: var(--acc); }
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: var(--scope);
+  border: 1px solid var(--scope-line);
+  color: var(--scope-dim);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+}
+.status-right { margin-left: auto; color: var(--scope-ink); }
+.led { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 6px var(--ok); }
+.status.warn .led { background: #e3ae45; box-shadow: 0 0 6px #e3ae45; }
+.status.win .led { background: var(--acc); box-shadow: 0 0 6px var(--acc); }
+.status.win #status { color: var(--acc); }
+
+.scope-plate { padding: 12px; gap: 12px; }
+.goal { display: flex; align-items: baseline; gap: 10px; padding: 0 4px; }
+.goal-text { font-size: 14px; font-weight: 600; }
+.goal-progress { margin-left: auto; font-size: 12px; color: var(--scope-dim); }
+.goal-progress.done { color: var(--acc); }
+.plate {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  border-radius: 10px;
+  /* Плата сама обрабатывает касания: ни прокрутки, ни масштаба под пальцем. */
+  touch-action: none;
+}
+.foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--scope-dim);
+  padding: 0 4px;
+}
+.sample { color: var(--acc); letter-spacing: 0.06em; }
+
+/* ---------- Клавиши ---------- */
+
+.keys { display: flex; gap: 10px; }
+.key {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 8px;
+  border-radius: 10px;
+  background: var(--case-2);
+  border: 1px solid var(--edge);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+.key b { font-family: var(--mono); font-size: 13px; letter-spacing: 0.16em; font-weight: 600; }
+.key small { font-family: var(--mono); font-size: 9px; letter-spacing: 0.14em; color: var(--silk-2); text-transform: uppercase; }
+.key:active { transform: translateY(2px); box-shadow: none; }
+.key-acc { background: var(--acc); border-color: var(--acc-edge); color: #fff; box-shadow: 0 2px 0 var(--acc-edge); }
+.key-acc small { color: rgba(255, 255, 255, 0.75); }
+
+/* ---------- Итог ---------- */
+
+.res-final { font-family: var(--mono); font-style: normal; font-size: 48px; color: var(--acc); }
+.res-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.res-table td { padding: 8px 2px; border-top: 1px solid var(--scope-line); }
+.res-table td:first-child { color: var(--scope-dim); }
+.res-table td:last-child { text-align: right; }
+.res-table .done { color: var(--acc); }
